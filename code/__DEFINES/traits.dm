@@ -262,6 +262,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_STAKE_RESISTANT	"stake_resistant"
 //#define TRAIT_PHOENIX			"phoenix"
 #define TRAIT_LAZY				"lazy"
+#define TRAIT_COLD_AURA			"cold_aura"
+#define TRAIT_WARM_AURA			"warm_aura"
+#define TRAIT_BLUSH_OF_HEALTH	"blush_of_health"
+#define TRAIT_CAN_EAT			"can_eat" // this is for kindred not normal people. normal people do not need this flag.
+#define TRAIT_MESSY_DRINKER		"messy_drinker"
+#define TRAIT_DEBTOR			"debtor"
+#define TRAIT_ANIMAL_REPULSION	"animal_repulsion"
 #define TRAIT_HOMOSEXUAL		"homosexual"
 #define TRAIT_HUNTED			"hunted"
 #define TRAIT_VIOLATOR			"violator"
