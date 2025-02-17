@@ -104,6 +104,9 @@ var/mob/living/carbon/human/H
 		account.balance = rand(4000, 8000)
 	else
 		account.balance = rand(600, 1000)
+	if(HAS_TRAIT(user,TRAIT_DEBTOR))
+		account.balance *= 0.5 // Halves starting money.
+		account.balance = round(account.balance)
 
 /obj/machinery/vamp/atm/Initialize()
 	..()

@@ -125,3 +125,32 @@
 	..()
 
 
+/datum/phonecontact/bounxer
+	name = "Bouncer"
+
+/datum/phonecontact/barkeeper/check_global_contacts()
+	if(number != GLOB.bouncernumber && name_check != GLOB.bouncername)
+		number = GLOB.bouncernumber
+		name = GLOB.bouncername + " - " + name
+		return TRUE
+	..()
+
+/datum/phonecontact/Emissary
+	name = "Emissary"
+
+/datum/phonecontact/emissary/check_global_contacts()
+	if(number != GLOB.emissarynumber && name_check != GLOB.emissaryname)
+		number = GLOB.emissarynumber
+		name = GLOB.emissaryname + " - " + name
+		return TRUE
+	..()
+
+/datum/phonecontact/Sweeper
+	name = "Sweeper"
+
+/datum/phonecontact/sweeper/check_global_contacts()
+	if(number != GLOB.sweepernumber && name_check != GLOB.sweepername)
+		number = GLOB.sweepernumber
+		name = GLOB.sweepername + " - " + name
+		return TRUE
+	..()

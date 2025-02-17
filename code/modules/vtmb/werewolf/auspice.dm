@@ -20,7 +20,8 @@
 	var/list/glasswalker = list(
 		/datum/action/gift/smooth_move = 1,
 		/datum/action/gift/digital_feelings = 2,
-		/datum/action/gift/elemental_improvement = 3
+		/datum/action/gift/hands_full_of_thunder = 2,
+		/datum/action/gift/elemental_improvement = 3,
 	)
 
 	var/list/spiral = list(

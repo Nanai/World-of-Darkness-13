@@ -144,6 +144,33 @@ Dancer
 	lose_text = "<span class='notice'>You don't feel dumb anymore.</span>"
 	allowed_species = list("Vampire", "Human", "Ghoul", "Kuei-Jin")
 
+/datum/quirk/cold_aura
+	name = "Deathly Aura"
+	desc = "Even if your heart beats, you show cold to matters of the soul. Cats and dogs might steer away from you..."
+	mob_trait = TRAIT_COLD_AURA
+	value = 2
+	gain_text = "<span class='warning'>You feel shaded.</span>"
+	lose_text = "<span class='notice'>You feel a subtle warmth.</span>"
+	allowed_species = list("Human", "Ghoul")
+
+/datum/quirk/warm_aura
+	name = "Lively Aura"
+	desc = "You don't SEEM dead enough to readings, fooling a few forms of detection as to whether or not you're a walking corpse."
+	mob_trait = TRAIT_WARM_AURA
+	value = 5
+	gain_text = "<span class='warning'>You feel your heart beat, for a moment.</span>"
+	lose_text = "<span class='notice'>You feel a subtle chill.</span>"
+	allowed_species = list("Kuei-jin", "Vampire")
+
+/datum/quirk/blush_of_health
+	name = "Blush of Health"
+	desc = "You're a little more lively than others. Makes you look less dead to onlookers."
+	mob_trait = TRAIT_BLUSH_OF_HEALTH
+	value = 3
+	gain_text = "<span class='warning'>You feel your heart beat, thumping irregularly in your chest.</span>"
+	lose_text = "<span class='notice'>You feel your pulse slow to a crawl, stilling.</span>"
+	allowed_species = list("Vampire")
+
 /datum/quirk/coffin_therapy
 	name = "Coffin Therapy"
 	desc = "Your wounds heal only in a coffin."

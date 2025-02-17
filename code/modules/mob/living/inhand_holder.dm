@@ -77,6 +77,13 @@
 /obj/item/clothing/head/mob_holder/on_found(mob/finder)
 	if(held_mob?.will_escape_storage())
 		to_chat(finder, "<span class='warning'>\A [held_mob.name] pops out! </span>")
+		if(HAS_TRAIT(finder, TRAIT_ANIMAL_REPULSION))
+			var/mob/living/carbon/human/handler = finder
+			if(prob(50))
+				handler.apply_damage(5, BRUTE, BODY_ZONE_L_ARM)
+			else
+				handler.apply_damage(5, BRUTE, BODY_ZONE_R_ARM)
+			to_chat(finder, "<span class='warning'>It bit you!</span>")
 		finder.visible_message("<span class='warning'>\A [held_mob.name] pops out of the container [finder] is opening!</span>", ignored_mobs = finder)
 		release(TRUE, FALSE)
 		return
