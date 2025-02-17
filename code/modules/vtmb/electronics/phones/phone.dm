@@ -192,6 +192,41 @@
 	onclose(mobila, "phone", src)
 */
 
+/obj/item/vamp/phone/proc/publish_number(mob/living/carbon/human/user,name)
+	if (!islist(GLOB.published_numbers))
+		GLOB.published_numbers = list()
+	if (!islist(GLOB.published_number_names))
+		GLOB.published_number_names = list()
+	name = trim(copytext_char(sanitize(name), 1, MAX_MESSAGE_LEN))
+	if(src.number in GLOB.published_numbers)
+		to_chat(user, "<span class ='notice'>You've republished your number.</span>")
+		for(var/obj/item/vamp/phone/PHN1 in GLOB.phones_list)
+			for(var/datum/phonecontact/OLDC in PHN1.contacts)
+				if(OLDC.number == number)
+					PHN1.contacts -= OLDC
+	else
+		to_chat(user, "<span class='notice'>Your number is now published.</span>")
+	GLOB.published_numbers += src.number
+	GLOB.published_number_names += name
+	for(var/obj/item/vamp/phone/PHN in GLOB.phones_list)
+		//Gather all the Phones in the game to check if they got the toggle for published contacts
+		if(PHN.toggle_published_contacts == TRUE)
+		//If they got it, their published number will be added to those phones
+			var/datum/phonecontact/NEWC = new()
+			var/p_number = src.number
+			NEWC.number = "[p_number]"
+			NEWC.name = "[name]"
+			if(NEWC.number != PHN.number)
+				//Check if it is not your own number that you are adding to contacts
+				var/GOT_CONTACT = FALSE
+				for(var/datum/phonecontact/Contact in PHN.contacts)
+					if(Contact.number == NEWC.number)
+						//Check if the number is not already in your contact list
+						GOT_CONTACT = TRUE
+						break
+				if(!GOT_CONTACT)
+					PHN.contacts += NEWC
+
 /obj/item/vamp/phone/ui_act(action, params)
 	. = ..()
 	if(.)
@@ -371,40 +406,9 @@
 			var/result
 			switch(option)
 				if("Publish Number")
-					if (!islist(GLOB.published_numbers))
-						GLOB.published_numbers = list()
-					if (!islist(GLOB.published_number_names))
-						GLOB.published_number_names = list()
-
 					var/name = input(usr, "Input name", "Publish Number") as null|text
 					if(name && src.number)
-						name = trim(copytext_char(sanitize(name), 1, MAX_MESSAGE_LEN))
-						if(src.number in GLOB.published_numbers)
-							to_chat(usr, "<span class ='notice'>This number is already published.</span>")
-						else
-							GLOB.published_numbers += src.number
-							GLOB.published_number_names += name
-							to_chat(usr, "<span class='notice'>Your number is now published.</span>")
-							for(var/obj/item/vamp/phone/PHN in GLOB.phones_list)
-							//Gather all the Phones in the game to check if they got the toggle for published contacts
-								if(PHN.toggle_published_contacts == TRUE)
-							//If they got it, their published number will be added to those phones
-									var/datum/phonecontact/NEWC = new()
-									var/p_number = src.number
-									NEWC.number = "[p_number]"
-									NEWC.name = "[name]"
-									if(NEWC.number != PHN.number)
-										//Check if it is not your own number that you are adding to contacts
-										var/GOT_CONTACT = FALSE
-										for(var/datum/phonecontact/Contact in PHN.contacts)
-											if(Contact.number == NEWC.number)
-												//Check if the number is not already in your contact list
-												GOT_CONTACT = TRUE
-												break
-										if(!GOT_CONTACT)
-											PHN.contacts += NEWC
-       					//to_chat(usr, "<span class='notice'>Published numbers: [GLOB.published_numbers]</span>")
-       					//to_chat(usr, "<span class='notice'>Published names: [GLOB.published_number_names]</span>")
+						src.publish_number(usr,name)
 					else
 						to_chat(usr, "<span class='notice'>You must input a name to publish your number.</span>")
 

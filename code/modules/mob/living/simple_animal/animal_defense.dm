@@ -8,6 +8,15 @@
 		if("help")
 			if (stat == DEAD)
 				return
+			if(HAS_TRAIT(M, TRAIT_ANIMAL_REPULSION))
+				playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+				var/shove_dir = get_dir(M, src)
+				if(!M.client)
+					Move(get_step(src, shove_dir), shove_dir)
+				visible_message("<span class='notice'>[M] shies away from [src], baring teeth!</span>", \
+								"<span class='notice'>[M] feels <b>deeply uncomfortable</b> as they reach for you. You instinctively bare your teeth!</span>", null, null, M)
+				to_chat(M, "<span class='notice'>You attempt to [response_help_simple] [src], but they shy from you, baring teeth.</span>")
+				return TRUE
 			visible_message("<span class='notice'>[M] [response_help_continuous] [src].</span>", \
 							"<span class='notice'>[M] [response_help_continuous] you.</span>", null, null, M)
 			to_chat(M, "<span class='notice'>You [response_help_simple] [src].</span>")
@@ -17,6 +26,17 @@
 
 		if("grab")
 			grabbedby(M)
+			if(HAS_TRAIT(M, TRAIT_ANIMAL_REPULSION))
+				if (stat == DEAD)
+					return
+				playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+				var/shove_dir = get_dir(M, src)
+				if(!M.client)
+					Move(get_step(src, shove_dir), shove_dir)
+				visible_message("<span class='notice'>[M] shies away from [src], baring teeth!</span>", \
+								"<span class='notice'>[M] feels <b>deeply uncomfortable</b> as they reach for you. You instinctively bare your teeth!</span>", null, null, M)
+				to_chat(M, "<span class='notice'>You attempt to grab [src], but they shy from you, baring teeth.</span>")
+				return TRUE
 
 		if("disarm")
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
